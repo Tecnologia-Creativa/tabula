@@ -4,11 +4,7 @@ export { Tabula };
 //            Tabula class
 // ******************************************
 //
-// document.getElementById(id).attribute;
-// document.getElementById(id).innerHTML; -> devuelve todo el html
-// document.getElementById(id).innerText; -> devuelte el texto eliminando espacios innecesarios
-// document.getElementById("id").textContent; --> devuelve el texto completo con los espacios extra sin etiquetas html
-// node.setAttribute("attrb","value");
+// Version 0.1
 
 class Tabula {
 
