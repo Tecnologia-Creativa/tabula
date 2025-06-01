@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100..700&display=swap');
+
+
+:root {
+
+       --tabula-width: 100%;
+       --tabula-border-color: rgb(255, 0, 0);
+       --tabula-border-width: 1px;
+       --tabula-row-border-color: rgb(255, 255, 255);
+       --tabula-cell-bordercolor: rgb(242, 239, 239);
+       --tabula-cell-subrow-bordercolor: rgb(246, 246, 246);
+       --tabula-cell-borderwidth: .5px;
+       --tabula-head-bordercolor: rgb(255, 255, 255);
+       --tabula-head-borderwidth: .5px;
+
+       --tabula-header-backcolor: rgb(101, 183, 255);
+       --tabula-header-fontcolor: rgb(255, 255, 255);
+       --tabula-headerCol-backcolor: rgb(255, 255, 255);
+       --tabula-headerCol-fontcolor: rgb(255, 255, 240);
+       --tabula-backcolor: rgb(249, 249, 249);
+       --tabula-subRow-backcolor: rgb(255, 255, 255);
+       --tabula-selected-subRow-backcolor: rgb(224, 253, 252);
+
+       --tabula-cell-padding: 5px;
+       --tabula-cell-margin: 0px;
+
+       --tabula-row-minheight: 20px;
+
+       --tabula-font-family: "roboto mono";
+       --tabula-font-normal: .7rem;
+       --tabula-font-header: .7rem;
+       --tabula-fontweight-normal: 400;
+       --tabula-fontweight-header: 500;
+}
+
+
+table.tabula-table tbody tr {
+       border-style: solid;
+       border: 0.5px solid var(--tabula-row-border-color);
+}
+
+table.tabula-table tbody td {
+       padding: var(--tabula-cell-padding);
+       /*border-width: var(--tabula-cell-margin);*/
+       border-left: var(--tabula-cell-borderwidth) solid var(--tabula-cell-bordercolor);
+}
+
+table.tabula-table  tr {
+       height: var(--tabula-row-minheight);
+}
+
+.tabula-table {
+       width: var(--tabula-width);
+       font-family: var(--tabula-font-family);
+       font-weight: var(--tabula-fontweight-normal);
+       font-size: var(--tabula-font-normal);
+       /*        border-color: var(--tabula-border-color);
+       border-style: solid;
+       border-width: var(--tabula-border-width); */
+       background-color: var(--tabula-backcolor);
+       ;
+}
+
+table.tabula-table thead th {
+       background-color: var(--tabula-header-backcolor) !important;
+       color: var(--tabula-header-fontcolor) !important;
+       font-size: var(--tabula-font-header) !important;
+       font-weight: var(--tabula-fontweight-header) !important;
+       padding: var(--tabula-cell-padding);
+       border-left: var(--tabula-cell-borderwidth) solid var(--tabula-cell-bordercolor);
+       
+}
+
+table.tabula-table tbody th {
+       background-color: var(--tabula-headerCol-backcolor) !important;
+       font-size: var(--tabula-font-header) !important;
+       font-weight: var(--tabula-fontweight-header) !important;
+       padding: var(--tabula-cell-padding);
+       text-align: right;
+
+}
+
+.tabula-groupButton {
+       background-color: white;
+       border: 0.5px solid gray;
+       padding: 0px;
+       font-size: 11px;
+       width: 13px;
+       height: 14px;
+
+}
+
+.tabula-subRow {
+       background-color: var(--tabula-subRow-backcolor);
+       border-bottom: var(--tabula-cell-borderwidth) solid var(--tabula-cell-subrow-bordercolor) !important;
+       cursor:pointer;
+}
+
+.tabula-selected-subrow {
+
+       background-color: var(--tabula-selected-subRow-backcolor);
+}
+
+.tabula-text-right {
+       text-align: right;
+}
+
+.tabula-text-center {
+       text-align: center;
+}

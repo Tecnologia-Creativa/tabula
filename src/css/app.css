@@ -1,0 +1,31 @@
+
+/*  GENERAL */
+
+
+html,
+body {
+       margin: 0 auto;
+       overflow: hidden;
+       user-select: none;
+       -webkit-font-smoothing: antialiased;
+       text-rendering: optimizeLegibility;
+       /* cursor:none; */
+
+}
+
+#bot-container {
+  z-index: 1;
+  display: none;
+  position:fixed;
+  width: 50vw;
+  height: 500px;
+  max-width: 450px;
+  min-width: 390px;
+  right:0px;
+  bottom:80px;
+  border: 2px;
+  border-radius: 25px 25px 0px 0px;
+  background-color: #818486cc;
+}
+
+
