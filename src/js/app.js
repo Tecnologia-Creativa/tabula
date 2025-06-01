@@ -43,7 +43,7 @@ function testcallback(id) {
                      auxsrow[sr]={
                             parentId: opt.rowsIds[r],
                             subrowId: opt.rowsIds[r]+"-sr-"+sr,
-                            values: ["","Account", "Subpartida de prueba "+sr ,123.32,234.12,345.32,456,567,678,789,876,765,654,543,432]
+                            values: ["","Account", "Subpartida de prueba "+sr ,1.1,2.2,3.3,4.4,5.5,6.6,7.7,8.8,9.9,10.10,11.11,12.12]
                             };
               }
               console.log(auxsrow);

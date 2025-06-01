@@ -4,7 +4,7 @@ export { Tabula };
 //            Tabula class
 // ******************************************
 //
-// Version 0.1
+// Version 0.1       
 
 class Tabula {
 
@@ -28,7 +28,7 @@ class Tabula {
        #startRow = 1;
 
        theGrid=[];   // array con los objetos de los valores.
-                     // 
+                     // De momento no lo usamos !!!!!
 
        tableObj = {};
 
@@ -42,7 +42,7 @@ class Tabula {
               this.#createTableBase();
        }
 
-       #createGrid() {
+       #createGrid() { // DE MOMENTO NO USAMOS EL GRID
               // definimos el objeto fila, compuesto por array de valores y array de subfilas
               let rowobject={values:[],subrows:[]}; 
               // Inicializamos el array de valores con el establecido en opciones 
@@ -179,14 +179,16 @@ class Tabula {
               });
               for ( let i=this.#startCol;i<=this.#options.width;i++) {
                      let auxCol=this.#createItem("td",parentId + "-"+id,"",auxRow);
-                     auxCol.appendChild(this.#createTextNode(values[i]));
+                     //let auxNode=this.#createTextNode(auxCol);
+                     //auxCol.appendChild(auxNode);
+                     this.renderCell(auxCol,values[i],"");
                      auxCol.style.textAlign=this.#options.colAligns[i];
               }
               //console.log(auxRow);
               theparent.insertAdjacentElement("afterEnd",auxRow);
        }
 
-       #renderCell(mynode,cellValue='',style="") {
+       renderCell(mynode,cellValue='',style="") {
               mynode.style=style;
               if(isNaN(cellValue) || (cellValue.length<1)) {
                      mynode.innerText=String(cellValue).trim();   
@@ -203,7 +205,7 @@ class Tabula {
               for (let r=0;r<valuesRows.length;r++) { 
                      let rowchilds=document.getElementById(this.#options.rowsIds[r]).childNodes;
                      for (let c=1;c<valuesRows[r].length;c++) { // columnas
-                            this.#renderCell(rowchilds[c],valuesRows[r][c]);                      // METER ESTILO Y HACE PÚBLICO
+                            this.renderCell(rowchilds[c],valuesRows[r][c]);                      // METER ESTILO Y HACER PÚBLICO
                      }
                      // subrows
                      if (r>0) { // no tocamos cabecera
