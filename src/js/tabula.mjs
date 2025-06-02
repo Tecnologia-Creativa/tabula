@@ -161,6 +161,7 @@ class Tabula {
        }
 
        #addSubRow (parentId,id,values=[]) {
+              console.log(parentId+" --> "+id);
               let theparent=document.getElementById(parentId);
               //this.#sanitize(values,this.#options.width);
               const auxRow = document.createElement("tr");
@@ -178,7 +179,7 @@ class Tabula {
                      this.#options.subrowClickCallback(e.currentTarget.id);
               });
               for ( let i=this.#startCol;i<=this.#options.width;i++) {
-                     let auxCol=this.#createItem("td",parentId + "-"+id,"",auxRow);
+                     let auxCol=this.#createItem("td",id + "-cell-"+i,"",auxRow);
                      //let auxNode=this.#createTextNode(auxCol);
                      //auxCol.appendChild(auxNode);
                      this.renderCell(auxCol,values[i],"");
@@ -187,6 +188,12 @@ class Tabula {
               //console.log(auxRow);
               theparent.insertAdjacentElement("afterEnd",auxRow);
        }
+
+
+
+       
+              //// *************************************** PUBLICS
+
 
        renderCell(mynode,cellValue='',style="") {
               mynode.style=style;
@@ -198,8 +205,6 @@ class Tabula {
               
        }
        
-       //// *************************************** PUBLICS
-
        renderMain(valuesRows=[],valuesSubrows=[]) {
               // filas
               for (let r=0;r<valuesRows.length;r++) { 

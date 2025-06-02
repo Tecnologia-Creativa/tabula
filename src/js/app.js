@@ -46,13 +46,13 @@ function testcallback(id) {
                             values: ["","Account", "Subpartida de prueba "+sr ,1.1,2.2,3.3,4.4,5.5,6.6,7.7,8.8,9.9,10.10,11.11,12.12]
                             };
               }
-              console.log(auxsrow);
+              //console.log(auxsrow);
               subrows[r]=auxsrow;
        }
        //console.log(subrows);
 
        var myt=new Tabula(document.body,opt);
        myt.renderMain(mainValues,subrows);       
-
+       //myt.renderCell("tr-0-sr-1",Math.floor(Math.random()*40000*100/100),"color:red;");
 
 })();
