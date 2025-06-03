@@ -51,8 +51,14 @@ function testcallback(id) {
        }
        //console.log(subrows);
 
+
+       // creamos y renderizamos tabla
        var myt=new Tabula(document.body,opt);
-       myt.renderMain(mainValues,subrows);       
-       //myt.renderCell("tr-0-sr-1",Math.floor(Math.random()*40000*100/100),"color:red;");
+       myt.renderMain(mainValues,subrows);
+
+
+       // ejemplo acceso a una celda por su id
+       myt.renderCell(document.getElementById("tr-1-3"),Math.floor(Math.random()*40000*100/100),"color:red;");
+       myt.renderCell(document.getElementById("tr-1-sr-1-cell-4"),Math.floor(Math.random()*40000*100/100),"color:red;");
 
 })();
