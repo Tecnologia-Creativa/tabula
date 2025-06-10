@@ -1,8 +1,11 @@
 
 import { Tabula} from "./tabula.mjs"; 
 
-
+var myt;
+var mainValues;
+var subrows;
 function testcallback(id) {
+        myt.updateValues(mainValues,subrows);
        console.log("click on "+id);
 }
 
@@ -14,7 +17,7 @@ function testcallback(id) {
        let opt={
               id:"mytabula",
               width: 14,
-              height: 7,
+              height: 2,
               header: true,
               fixedCol: true,
               footer: true,
@@ -26,17 +29,17 @@ function testcallback(id) {
 
 
        // generamos valores para la tabla principal
-       let mainValues=new Array(opt.height); // el primer elemento (0) es la cabecera
+       mainValues=new Array(opt.height); // el primer elemento (0) es la cabecera
        mainValues[0]=['',"ACCOUNT","NAME","JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
        for (let i=1;i<=opt.height;i++) { 
               // el primer elemento del array es la col 0
               mainValues[i]=[i,"","Partida de prueba "+i ,123.32,234.12,345.32,456,567,678,789,876,765,654,543,432];
        }
 
-       let subrows=new Array();
+       subrows=new Array();
        // Creamos valores para los subrows
        for (let r=1;r<=opt.height;r++) { // desde 1 porque el 0 es el header y no tiene subrows
-              let nsrows=Math.ceil(Math.random()*14)+1; //número de filas aleatorias para probar
+              let nsrows=Math.ceil(Math.random()*3)+1; //número de filas aleatorias para probar
               let auxsrow=[];
               for (let sr=0;sr<nsrows;sr++) { 
                      // Estructura objeto que define un subrow
@@ -53,12 +56,13 @@ function testcallback(id) {
 
 
        // creamos y renderizamos tabla
-       var myt=new Tabula(document.body,opt);
+       myt=new Tabula(document.body,opt);
        myt.renderMain(mainValues,subrows);
 
 
-       // ejemplo acceso a una celda por su id
+       // ejemplo acceso a una celda por su id (IDFILA-n  donde n es el nº de la columna)
        myt.renderCell(document.getElementById("tr-1-3"),Math.floor(Math.random()*40000*100/100),"color:red;");
+       // ejemplo acceso a una celda de subfila por su id (ISSUBFILA-cell-n  donde n es el nº de la columna)
        myt.renderCell(document.getElementById("tr-1-sr-1-cell-4"),Math.floor(Math.random()*40000*100/100),"color:red;");
 
 })();

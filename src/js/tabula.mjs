@@ -76,7 +76,7 @@ class Tabula {
               let auxcolgroup={};
 
               if (document.getElementById(this.#options.id)) document.getElementById(this.#options.id).remove();
-
+       
               this.tableObj= null;
               this.tableObj = this.#createItem("table", this.#options.id, "tabula-table", this.#container);
 
@@ -161,7 +161,7 @@ class Tabula {
        }
 
        #addSubRow (parentId,id,values=[]) {
-              console.log(parentId+" --> "+id);
+              //console.log(parentId+" --> "+id);
               let theparent=document.getElementById(parentId);
               //this.#sanitize(values,this.#options.width);
               const auxRow = document.createElement("tr");
@@ -216,7 +216,30 @@ class Tabula {
                      if (r>0) { // no tocamos cabecera
                             for (let sr=valuesSubrows[r].length-1;sr>=0;sr--) { 
                                    //console.log(valuesSubrows[r][sr]);
+                                   if (document.getElementById(valuesSubrows[r][sr].subrowId)) document.getElementById(valuesSubrows[r][sr].subrowId).remove();
                                    this.#addSubRow (valuesSubrows[r][sr].parentId,valuesSubrows[r][sr].subrowId,valuesSubrows[r][sr].values);
+                            }
+                      }
+
+              }
+       }
+
+       updateValues(valuesRows=[],valuesSubrows=[]) {
+              // filas
+              for (let r=0;r<valuesRows.length;r++) { 
+                     let rowchilds=document.getElementById(this.#options.rowsIds[r]).childNodes;
+                     for (let c=1;c<valuesRows[r].length;c++) { // columnas
+                            this.renderCell(rowchilds[c],valuesRows[r][c]);                      // METER ESTILO Y HACER PÚBLICO
+                     }
+                     // subrows
+                     if (r>0) { // no tocamos cabecera
+                            for (let sr=valuesSubrows[r].length-1;sr>=0;sr--) { 
+                                   //console.log(valuesSubrows[r][sr].subrowId+"   "+valuesSubrows[r][sr].values);
+                                   for ( let i=this.#startCol;i<=this.#options.width;i++) {
+                                                 let auxobj=document.getElementById(valuesSubrows[r][sr].subrowId+"-cell-"+i);
+                                                 this.renderCell(auxobj,valuesSubrows[r][sr].values[i],"");
+                                                 auxobj.style.textAlign=this.#options.colAligns[i];
+                                          } 
                             }
                       }
 
