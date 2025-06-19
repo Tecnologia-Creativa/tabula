@@ -20,6 +20,7 @@ function testcallback(id) {
               height: 2,
               header: true,
               fixedCol: true,
+              groupButtons:false,
               footer: true,
               rowsIds: ["tr-0","tr-1","tr-2","tr-3","tr-4","tr-5","tr-6","tr-7"],
               colWidths:["5%","5%","30%","5%","5%","5%","5%","5%","5%","5%","5%","5%","5%","5%"],
@@ -57,12 +58,13 @@ function testcallback(id) {
 
        // creamos y renderizamos tabla
        myt=new Tabula(document.body,opt);
-       myt.renderMain(mainValues,subrows);
+       
+       myt.renderMain(mainValues,subrows); // omitir el parametro subrows si no se van a necesitar
 
 
        // ejemplo acceso a una celda por su id (IDFILA-n  donde n es el nº de la columna)
        myt.renderCell(document.getElementById("tr-1-3"),Math.floor(Math.random()*40000*100/100),"color:red;");
        // ejemplo acceso a una celda de subfila por su id (ISSUBFILA-cell-n  donde n es el nº de la columna)
-       myt.renderCell(document.getElementById("tr-1-sr-1-cell-4"),Math.floor(Math.random()*40000*100/100),"color:red;");
+       //myt.renderCell(document.getElementById("tr-1-sr-1-cell-4"),Math.floor(Math.random()*40000*100/100),"color:red;");
 
 })();

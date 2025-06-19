@@ -38,11 +38,11 @@ class Tabula {
               this.#container = htmlObject;
 
               this.#processOptions(params);
-              this.#createGrid();
+              //this.#createGrid();
               this.#createTableBase();
        }
 
-       #createGrid() { // DE MOMENTO NO USAMOS EL GRID
+/*        #createGrid() { // DE MOMENTO NO USAMOS EL GRID
               // definimos el objeto fila, compuesto por array de valores y array de subfilas
               let rowobject={values:[],subrows:[]}; 
               // Inicializamos el array de valores con el establecido en opciones 
@@ -51,7 +51,7 @@ class Tabula {
               this.theGrid=new Array(this.#options.height);
               this.theGrid.fill(rowobject,0,this.#options.width);
               //this.theGrid.fill({})
-       }
+       } */
 
        #processOptions(myparams) {
               Object.assign(this.#options, myparams || {});
@@ -106,9 +106,11 @@ class Tabula {
                                    if (cols == 0) {
                                           auxCol = this.#createItem("th", colid, "", auxRow);
                                           auxCol.setAttribute("scope", "row");
-                                          let auxcmd=this.#createItem("button","cmd_"+this.#options.rowsIds[rows],"tabula-groupButton",auxCol);
-                                          auxcmd.appendChild(this.#createTextNode("+"));
-                                          auxcmd.addEventListener("click", this.#toggleGroupState);
+                                          if (this.#options.groupButtons) {
+                                                 let auxcmd=this.#createItem("button","cmd_"+this.#options.rowsIds[rows],"tabula-groupButton",auxCol);
+                                                 auxcmd.appendChild(this.#createTextNode("+"));
+                                                 auxcmd.addEventListener("click", this.#toggleGroupState);
+                                          }
 
                                    } else {
                                           auxCol = this.#createItem("td", colid,"", auxRow);
@@ -213,7 +215,7 @@ class Tabula {
                             this.renderCell(rowchilds[c],valuesRows[r][c]);                      // METER ESTILO Y HACER PÚBLICO
                      }
                      // subrows
-                     if (r>0) { // no tocamos cabecera
+                     if ((r>0) && (valuesSubrows.length>0)) { // no tocamos cabecera
                             for (let sr=valuesSubrows[r].length-1;sr>=0;sr--) { 
                                    //console.log(valuesSubrows[r][sr]);
                                    if (document.getElementById(valuesSubrows[r][sr].subrowId)) document.getElementById(valuesSubrows[r][sr].subrowId).remove();
