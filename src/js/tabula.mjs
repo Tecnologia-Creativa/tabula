@@ -197,8 +197,8 @@ class Tabula {
               //// *************************************** PUBLICS
 
 
-       renderCell(mynode,cellValue='',style="") {
-              mynode.style=style;
+       renderCell(mynode,cellValue='',style=null) {
+              if (style!=null) {mynode.style=style; }
               if(isNaN(cellValue) || (cellValue.length<1)) {
                      mynode.innerText=String(cellValue).trim();   
               } else {
