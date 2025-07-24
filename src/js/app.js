@@ -59,7 +59,7 @@ function testcallback(id) {
        // creamos y renderizamos tabla
        myt=new Tabula(document.body,opt);
        
-       myt.renderMain(mainValues,subrows); // omitir el parametro subrows si no se van a necesitar
+       myt.renderMain(mainValues); // omitir el parametro subrows si no se van a necesitar
 
 
        // ejemplo acceso a una celda por su id (IDFILA-n  donde n es el nº de la columna)

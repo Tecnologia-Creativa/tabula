@@ -38,23 +38,24 @@ class Tabula {
               this.#container = htmlObject;
 
               this.#processOptions(params);
-              //this.#createGrid();
+              // this.#createGrid();
               this.#createTableBase();
        }
 
-/*        #createGrid() { // DE MOMENTO NO USAMOS EL GRID
-              // definimos el objeto fila, compuesto por array de valores y array de subfilas
-              let rowobject={values:[],subrows:[]}; 
-              // Inicializamos el array de valores con el establecido en opciones 
-              rowobject.values=new Array(this.#options.width).fill("",0,this.#options.width); 
-              // inicializamos el objeto y lo rellenamos con la cantidad de filas establecido
-              this.theGrid=new Array(this.#options.height);
-              this.theGrid.fill(rowobject,0,this.#options.width);
-              //this.theGrid.fill({})
-       } */
+       // #createGrid() { // DE MOMENTO NO USAMOS EL GRID
+       //        // definimos el objeto fila, compuesto por array de valores y array de subfilas
+       //        let rowobject={values:[],subrows:[]}; 
+       //        // Inicializamos el array de valores con el establecido en opciones 
+       //        rowobject.values=new Array(this.#options.width).fill("",0,this.#options.width); 
+       //        // inicializamos el objeto y lo rellenamos con la cantidad de filas establecido
+       //        this.theGrid=new Array(this.#options.height);
+       //        this.theGrid.fill(rowobject,0,this.#options.width);
+       //        //this.theGrid.fill({})
+       // }
 
        #processOptions(myparams) {
               Object.assign(this.#options, myparams || {});
+              
               for (let i=0;i<=this.#options.height;i++) {
                      (String(this.#options.rowsIds[i])==="") ? this.#options.rowsIds[i]="r"+i : this.#options.rowsIds[i]=this.#options.rowsIds[i].trim() ;
               }
@@ -81,13 +82,15 @@ class Tabula {
               this.tableObj = this.#createItem("table", this.#options.id, "tabula-table", this.#container);
 
               auxcolgroup=this.#createItem("colgroup", "", "", this.tableObj)
+              
               for (let i=this.#startCol;i<=this.#options.width; i++){
                      let auxcol=this.#createItem("col", rowid, "", auxcolgroup);
                      auxcol.style.width=this.#options.colWidths[i];
-                     
               }
+
               for (let rows = this.#startRow; rows <= this.#options.height; rows++) {
                      var rowid=this.#options.rowsIds[rows];
+
                      if (rows == 0) {
                             auxRow = this.#createItem("thead", "", "", this.tableObj);
                             auxRow = this.#createItem("tr", rowid, "", auxRow);
@@ -97,6 +100,7 @@ class Tabula {
                             }
                             auxRow = this.#createItem("tr", rowid, "", auxtbody);
                      }
+
                      for (let cols = this.#startCol; cols <= this.#options.width; cols++) {
                             var colid=this.#options.rowsIds[rows] + "-" + cols;
                             if (rows == 0) {
@@ -149,6 +153,7 @@ class Tabula {
  */
        #toggleGroupState(e) {
               let displayType="";
+              
               if (e.currentTarget.innerText==="+") {
                      e.currentTarget.innerText="-";
                      displayType="";
@@ -156,10 +161,10 @@ class Tabula {
                      e.currentTarget.innerText="+";
                       displayType="none";
               }
+
               let row=e.currentTarget.parentNode.parentNode;
               const subrows=document.querySelectorAll("[parentid="+row.id+"]");
-              subrows.forEach((row => row.style.display=displayType )
-              );
+              subrows.forEach(( row => row.style.display=displayType ));
        }
 
        #addSubRow (parentId,id,values=[]) {
@@ -198,22 +203,36 @@ class Tabula {
 
 
        renderCell(mynode,cellValue='',style=null) {
-              if (style!=null) {mynode.style=style; }
-              if(isNaN(cellValue) || (cellValue.length<1)) {
-                     mynode.innerText=String(cellValue).trim();   
-              } else {
-                     mynode.innerText=new Intl.NumberFormat("es-ES",{ minimumFractionDigits: 2}, {maximumFractionDigits: 2}).format(cellValue)
+              if(style != null){
+                     mynode.style=style;
               }
-              
+
+              if(cellValue == null){
+                     mynode.innerText = '';
+              } else {
+                     if(isNaN(cellValue) || (cellValue.length<1)) {
+                            mynode.innerText=String(cellValue).trim();   
+                     } else {
+                            var _v = parseFloat(cellValue).toFixed(2);
+                            if(_v == 0){
+                                   mynode.innerText = '--';
+                            } else {
+                                   mynode.innerText = new Intl.NumberFormat("es-ES",{useGrouping: "always", minimumFractionDigits: 2, maximumFractionDigits: 2}).format(_v);
+                            }
+                     }
+              }              
        }
        
        renderMain(valuesRows=[],valuesSubrows=[]) {
               // filas
               for (let r=0;r<valuesRows.length;r++) { 
-                     let rowchilds=document.getElementById(this.#options.rowsIds[r]).childNodes;
-                     for (let c=1;c<valuesRows[r].length;c++) { // columnas
-                            this.renderCell(rowchilds[c],valuesRows[r][c]);                      // METER ESTILO Y HACER PÚBLICO
+                     if(document.getElementById(this.#options.rowsIds[r])){
+                            let rowchilds=document.getElementById(this.#options.rowsIds[r]).childNodes;
+                            for (let c=1;c<valuesRows[r].length;c++) { // columnas
+                                   this.renderCell(rowchilds[c],valuesRows[r][c]);                      // METER ESTILO Y HACER PÚBLICO
+                            }
                      }
+
                      // subrows
                      if ((r>0) && (valuesSubrows.length>0)) { // no tocamos cabecera
                             for (let sr=valuesSubrows[r].length-1;sr>=0;sr--) { 
@@ -229,10 +248,13 @@ class Tabula {
        updateValues(valuesRows=[],valuesSubrows=[]) {
               // filas
               for (let r=0;r<valuesRows.length;r++) { 
-                     let rowchilds=document.getElementById(this.#options.rowsIds[r]).childNodes;
-                     for (let c=1;c<valuesRows[r].length;c++) { // columnas
-                            this.renderCell(rowchilds[c],valuesRows[r][c]);                      // METER ESTILO Y HACER PÚBLICO
+                     if(document.getElementById(this.#options.rowsIds[r])){
+                            let rowchilds=document.getElementById(this.#options.rowsIds[r]).childNodes;
+                            for (let c=1;c<valuesRows[r].length;c++) { // columnas
+                                   this.renderCell(rowchilds[c],valuesRows[r][c]);                      // METER ESTILO Y HACER PÚBLICO
+                            }
                      }
+
                      // subrows
                      if (r>0) { // no tocamos cabecera
                             for (let sr=valuesSubrows[r].length-1;sr>=0;sr--) { 
