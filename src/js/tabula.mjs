@@ -127,11 +127,19 @@ class Tabula {
 
        }
 
-       #createItem(element, theid = "", theclass = "", parentNode) {
+       #createItem(element, theid = "", theclass = "", parentNode) { // crea un elemento y lo anexa a nodo padre
               const uiaux = document.createElement(element);
               this.#setItemAttribute(uiaux, "id", theid);
               this.#setItemAttribute(uiaux, "class", theclass);
               return parentNode.appendChild(uiaux);
+       }
+
+       #createItem2(element, theid = "", theclass = "", nodeReference) { // crea un elemento y lo anexa a un nodo según la posición elegida
+                                                                      //<!-- beforebegin --><p> <!-- afterbegin --> XXXXXXX <!-- beforeend --> </p> <!-- afterend -->
+              const uiaux = document.createElement(element);
+              this.#setItemAttribute(uiaux, "id", theid);
+              this.#setItemAttribute(uiaux, "class", theclass);
+              return nodeReference.insertAdjacentElement("beforebegin",uiaux);
        }
 
        #setItemAttribute(theItem, theAttrib, theValue = "") {
@@ -220,7 +228,7 @@ class Tabula {
                                    mynode.innerText = new Intl.NumberFormat("es-ES",{useGrouping: "always", minimumFractionDigits: 2, maximumFractionDigits: 2}).format(_v);
                             }
                      }
-              }              
+              } 
        }
        
        renderMain(valuesRows=[],valuesSubrows=[]) {
@@ -270,9 +278,21 @@ class Tabula {
               }
        }
 
+       insertEmptyRow(afterNode,id="",theclass="") {
+              let auxRow={};
+              let auxCol = {};
+              auxRow = this.#createItem2("tr", id, theclass, afterNode);
+              console.log(this.#startCol+" - "+this.#options.width);
+              for (let cols = this.#startCol; cols <= this.#options.width; cols++) {
+                     auxCol = this.#createItem("td", id+"-"+cols,"", auxRow);
+                     auxCol.appendChild(this.#createTextNode(cols));
+                     auxCol.style.textAlign=this.#options.colAligns[cols];
+              }
+       }
 
        setMainValues(tcol = 0, trow = 0, tvalue = "", tstyle = "") {
               this.tableValues;
+              
        }
 
        

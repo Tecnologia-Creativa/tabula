@@ -13,17 +13,13 @@
        --tabula-head-bordercolor: rgb(255, 255, 255);
        --tabula-head-borderwidth: .5px;
 
-       --tabula-header-backcolor: rgb(71, 133, 188);
+       --tabula-header-backcolor: rgb(101, 183, 255);
        --tabula-header-fontcolor: rgb(255, 255, 255);
        --tabula-headerCol-backcolor: rgb(255, 255, 255);
        --tabula-headerCol-fontcolor: rgb(255, 255, 240);
-       --tabula-backcolor: rgb(244, 244, 244);
+       --tabula-backcolor: rgb(249, 249, 249);
        --tabula-subRow-backcolor: rgb(255, 255, 255);
-       --tabula-selected-subRow-backcolor: rgb(255, 254, 175);
-
-       --tabula-specialRow1-backcolor: rgb(215, 217, 218);
-       --tabula-specialRow1-color: rgb (255,255,255);
-       --tabula-specialRow1-fontweight: 800;
+       --tabula-selected-subRow-backcolor: rgb(224, 253, 252);
 
        --tabula-cell-padding: 5px;
        --tabula-cell-margin: 0px;
@@ -31,13 +27,10 @@
        --tabula-row-minheight: 20px;
 
        --tabula-font-family: "roboto mono";
-       --tabula-font-normal: 10px;
+       --tabula-font-normal: .7rem;
        --tabula-font-header: .7rem;
        --tabula-fontweight-normal: 400;
        --tabula-fontweight-header: 500;
-
-       --tabula-color-pending-text: #C57874;
-       --tabula-color-normal-text: #414344;
 }
 
 
@@ -114,11 +107,4 @@ table.tabula-table tbody th {
 
 .tabula-text-center {
        text-align: center;
-}
-
-.tabula-specialRow-1 {
-       background-color: var(--tabula-specialRow1-backcolor);
-       color: var(--tabula-specialRow1-color);
-       font-weight: var(--tabula-specialRow1-fontweight);
-       /* border-bottom: var(--tabula-cell-borderwidth) solid var(--tabula-cell-subrow-bordercolor) !important; */
 }

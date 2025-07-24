@@ -17,12 +17,12 @@ function testcallback(id) {
        let opt={
               id:"mytabula",
               width: 14,
-              height: 2,
+              height: 10,
               header: true,
               fixedCol: true,
-              groupButtons:false,
+              groupButtons:true,
               footer: true,
-              rowsIds: ["tr-0","tr-1","tr-2","tr-3","tr-4","tr-5","tr-6","tr-7"],
+              rowsIds: ["tr-0","tr-1","tr-2","tr-3","tr-4","tr-5","tr-6","tr-7","tr-8","tr-9","tr-10"],
               colWidths:["5%","5%","30%","5%","5%","5%","5%","5%","5%","5%","5%","5%","5%","5%"],
               colAligns:["right","","","right","right","right","right","right","right","right","right","right","right","right","right"],
               subrowClickCallback:testcallback,
@@ -59,12 +59,15 @@ function testcallback(id) {
        // creamos y renderizamos tabla
        myt=new Tabula(document.body,opt);
        
-       myt.renderMain(mainValues); // omitir el parametro subrows si no se van a necesitar
+       myt.renderMain(mainValues,subrows); // omitir el parametro subrows si no se van a necesitar
 
 
        // ejemplo acceso a una celda por su id (IDFILA-n  donde n es el nº de la columna)
        myt.renderCell(document.getElementById("tr-1-3"),Math.floor(Math.random()*40000*100/100),"color:red;");
        // ejemplo acceso a una celda de subfila por su id (ISSUBFILA-cell-n  donde n es el nº de la columna)
        //myt.renderCell(document.getElementById("tr-1-sr-1-cell-4"),Math.floor(Math.random()*40000*100/100),"color:red;");
+
+       // inserta una fila vacía justo antes del elemento indicado con id MYEMPTYROW y clase specialRow-1. Esa clase estarán definidas por defecto en el css principal
+       myt.insertEmptyRow(document.getElementById("tr-9"),"MYEMPTYROW","tabula-specialRow-1");
 
 })();
