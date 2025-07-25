@@ -22,7 +22,7 @@
        --tabula-selected-subRow-backcolor: rgb(255, 254, 175);
 
        --tabula-specialRow1-backcolor: rgb(215, 217, 218);
-       --tabula-specialRow1-color: rgb (255,255,255);
+       --tabula-specialRow1-color: rgb(0, 68, 255);
        --tabula-specialRow1-fontweight: 800;
 
        --tabula-cell-padding: 5px;
@@ -36,7 +36,7 @@
        --tabula-fontweight-normal: 400;
        --tabula-fontweight-header: 500;
 
-       --tabula-color-pending-text: #C57874;
+       --tabula-color-pending-text: rgb(255 135 128);
        --tabula-color-normal-text: #414344;
 }
 

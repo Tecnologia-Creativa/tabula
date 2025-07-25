@@ -75,6 +75,7 @@ class Tabula {
               this.#options.fixedCol ? this.#startCol = 0 : this.#startCol = 1;
               let auxtbody = {};
               let auxcolgroup={};
+              let isSpecial=false;
 
               if (document.getElementById(this.#options.id)) document.getElementById(this.#options.id).remove();
        
@@ -90,28 +91,33 @@ class Tabula {
 
               for (let rows = this.#startRow; rows <= this.#options.height; rows++) {
                      var rowid=this.#options.rowsIds[rows];
-
+                     if (rowid.substring(0,3)=="$S$") { 
+                            isSpecial=true;
+                            rowid=rowid.substring(3);
+                      } else {
+                            isSpecial=false;
+                      };
                      if (rows == 0) {
                             auxRow = this.#createItem("thead", "", "", this.tableObj);
                             auxRow = this.#createItem("tr", rowid, "", auxRow);
                      } else {
                             if (rows == 1) {
-                                   auxtbody = this.#createItem("tbody", "", "", this.tableObj);
+                                   auxtbody = this.#createItem("tbody", "tabula-tbody", "", this.tableObj);
                             }
-                            auxRow = this.#createItem("tr", rowid, "", auxtbody);
+                            auxRow = this.#createItem("tr", rowid, (isSpecial ? "tabula-specialRow-1":""), auxtbody);
                      }
-
+                     
                      for (let cols = this.#startCol; cols <= this.#options.width; cols++) {
-                            var colid=this.#options.rowsIds[rows] + "-" + cols;
+                            var colid=rowid + "-" + cols; //this.#options.rowsIds[rows]
                             if (rows == 0) {
                                    auxCol = this.#createItem("th", colid, "", auxRow);
                                    auxCol.setAttribute("scope", "col");
                             } else {
-                                   if (cols == 0) {
+                                   if ((cols == 0) && !isSpecial) {
                                           auxCol = this.#createItem("th", colid, "", auxRow);
                                           auxCol.setAttribute("scope", "row");
                                           if (this.#options.groupButtons) {
-                                                 let auxcmd=this.#createItem("button","cmd_"+this.#options.rowsIds[rows],"tabula-groupButton",auxCol);
+                                                 let auxcmd=this.#createItem("button","cmd_"+rowid,"tabula-groupButton",auxCol);
                                                  auxcmd.appendChild(this.#createTextNode("+"));
                                                  auxcmd.addEventListener("click", this.#toggleGroupState);
                                           }
@@ -134,12 +140,17 @@ class Tabula {
               return parentNode.appendChild(uiaux);
        }
 
-       #createItem2(element, theid = "", theclass = "", nodeReference) { // crea un elemento y lo anexa a un nodo según la posición elegida
-                                                                      //<!-- beforebegin --><p> <!-- afterbegin --> XXXXXXX <!-- beforeend --> </p> <!-- afterend -->
+       #createItem2(element, theid = "", theclass = "", nodeReference="") { // crea un elemento y lo anexa a un nodo según la posición elegida
+              let insertionPoint="beforebegin";            //<!-- beforebegin --><p> <!-- afterbegin --> XXXXXXX <!-- beforeend --> </p> <!-- afterend --> 
+                                                                     
               const uiaux = document.createElement(element);
               this.#setItemAttribute(uiaux, "id", theid);
               this.#setItemAttribute(uiaux, "class", theclass);
-              return nodeReference.insertAdjacentElement("beforebegin",uiaux);
+              if (nodeReference=="") { 
+                     nodeReference=document.getElementById("tabula-tbody"); 
+                     insertionPoint="beforeend";
+              };
+              return nodeReference.insertAdjacentElement(insertionPoint,uiaux);
        }
 
        #setItemAttribute(theItem, theAttrib, theValue = "") {
@@ -148,7 +159,7 @@ class Tabula {
               theItem.setAttributeNode(attraux);
        }
 
-       #createTextNode(text) {
+       #createTextNode(text="") {
               let auxnode = document.createTextNode(text);
               return auxnode;
        }
@@ -242,7 +253,8 @@ class Tabula {
                      }
 
                      // subrows
-                     if ((r>0) && (valuesSubrows.length>0)) { // no tocamos cabecera
+                     if ((r>0) && (valuesSubrows.length>0) && valuesSubrows[r] ) { // no tocamos cabecera
+                            //console.log(valuesSubrows[r].length);
                             for (let sr=valuesSubrows[r].length-1;sr>=0;sr--) { 
                                    //console.log(valuesSubrows[r][sr]);
                                    if (document.getElementById(valuesSubrows[r][sr].subrowId)) document.getElementById(valuesSubrows[r][sr].subrowId).remove();
@@ -278,24 +290,16 @@ class Tabula {
               }
        }
 
-       insertEmptyRow(afterNode,id="",theclass="") {
+       insertEmptyRow(afterNode="",id="",theclass="") {
               let auxRow={};
               let auxCol = {};
               auxRow = this.#createItem2("tr", id, theclass, afterNode);
-              console.log(this.#startCol+" - "+this.#options.width);
               for (let cols = this.#startCol; cols <= this.#options.width; cols++) {
                      auxCol = this.#createItem("td", id+"-"+cols,"", auxRow);
-                     auxCol.appendChild(this.#createTextNode(cols));
+                     auxCol.appendChild(this.#createTextNode(""));
                      auxCol.style.textAlign=this.#options.colAligns[cols];
               }
        }
-
-       setMainValues(tcol = 0, trow = 0, tvalue = "", tstyle = "") {
-              this.tableValues;
-              
-       }
-
-       
 
        reset() {
               this.#createTableBase();
