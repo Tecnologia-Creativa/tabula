@@ -22,7 +22,7 @@ function testcallback(id) {
               fixedCol: true,
               groupButtons:true,
               footer: true,
-              rowsIds: ["tr-0","tr-1","tr-2","tr-3","$S$mySpecial1","tr-4","tr-5","tr-6","tr-7","tr-8","tr-9","tr-10"],
+              rowsIds: ["tr-0","tr-1","$S$mySpecial2","tr-2","tr-3","$S$mySpecial1","tr-4","tr-5","tr-6","tr-7","tr-8","tr-9","tr-10"],
               colWidths:["5%","5%","30%","5%","5%","5%","5%","5%","5%","5%","5%","5%","5%","5%"],
               colAligns:["right","","","right","right","right","right","right","right","right","right","right","right","right","right"],
               subrowClickCallback:testcallback,
