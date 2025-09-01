@@ -26,6 +26,7 @@ function testcallback(id) {
               colWidths:["5%","5%","30%","5%","5%","5%","5%","5%","5%","5%","5%","5%","5%","5%"],
               colAligns:["right","","","right","right","right","right","right","right","right","right","right","right","right","right"],
               subrowClickCallback:testcallback,
+              mainrowClickCallback: (id) => { console.log('AQUI -> ', id); }
               };
 
 

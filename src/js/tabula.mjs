@@ -22,7 +22,8 @@ class Tabula {
               rowsValues:[], // values
               colWidths:[], // style units
               colAligns:[],// text-align directive
-              subrowClickCallback:()=>{}, // revuelve el id del subrow pulsado
+              mainrowClickCallback: null,
+              subrowClickCallback: () => {} // revuelve el id del subrow pulsado
        }
        #startCol = 1;
        #startRow = 1;
@@ -195,6 +196,7 @@ class Tabula {
               this.#setItemAttribute(auxRow, "class", "tabula-subRow");
               this.#setItemAttribute(auxRow, "parentId", parentId);
               this.#setItemAttribute(auxRow, "style","display:none;");
+              
               auxRow.addEventListener("click",(e)=> {
                      document.querySelectorAll(".tabula-selected-subrow").forEach(
                                                  (x)=> { x.classList.remove("tabula-selected-subrow");}
@@ -204,6 +206,7 @@ class Tabula {
                      }
                      this.#options.subrowClickCallback(e.currentTarget.id);
               });
+
               for ( let i=this.#startCol;i<=this.#options.width;i++) {
                      let auxCol=this.#createItem("td",id + "-cell-"+i,"",auxRow);
                      //let auxNode=this.#createTextNode(auxCol);
@@ -246,9 +249,27 @@ class Tabula {
               // filas
               for (let r=0;r<valuesRows.length;r++) { 
                      if(document.getElementById(this.#options.rowsIds[r])){
+
+                            let mainrow = document.getElementById(this.#options.rowsIds[r]);
                             let rowchilds=document.getElementById(this.#options.rowsIds[r]).childNodes;
+                            
                             for (let c=1;c<valuesRows[r].length;c++) { // columnas
-                                   this.renderCell(rowchilds[c],valuesRows[r][c]);                      // METER ESTILO Y HACER PÚBLICO
+                                   this.renderCell(rowchilds[c], valuesRows[r][c]);                      // METER ESTILO Y HACER PÚBLICO
+                            }
+
+                            // Función para poder colocar un evento de click en las rows principales
+                            if(this.#options.mainrowClickCallback != null){
+                                   mainrow.addEventListener("click", (e) => {
+                                          document.querySelectorAll(".tabula-selected-row").forEach(
+                                                 (x)=> { x.classList.remove("tabula-selected-row");}
+                                          );
+
+                                          if (!mainrow.classList.contains("tabula-selected-row")) {
+                                                 mainrow.classList.add("tabula-selected-row");
+                                          }
+
+                                          this.#options.mainrowClickCallback(e.currentTarget.id);
+                                   });
                             }
                      }
 

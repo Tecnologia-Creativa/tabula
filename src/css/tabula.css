@@ -20,6 +20,7 @@
        --tabula-backcolor: rgb(244, 244, 244);
        --tabula-subRow-backcolor: rgb(255, 255, 255);
        --tabula-selected-subRow-backcolor: rgb(255, 254, 175);
+       --tabula-selected-mainRow-backcolor: rgb(255, 254, 175);
 
        --tabula-specialRow1-backcolor: rgb(215, 217, 218);
        --tabula-specialRow1-color: rgb(0, 68, 255);
@@ -104,8 +105,11 @@ table.tabula-table tbody th {
 }
 
 .tabula-selected-subrow {
-
        background-color: var(--tabula-selected-subRow-backcolor);
+}
+
+.tabula-selected-row {
+       background-color: var(--tabula-selected-mainRow-backcolor);
 }
 
 .tabula-text-right {
