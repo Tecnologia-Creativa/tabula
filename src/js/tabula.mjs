@@ -260,6 +260,9 @@ class Tabula {
                             // Función para poder colocar un evento de click en las rows principales
                             if(this.#options.mainrowClickCallback != null){
                                    mainrow.addEventListener("click", (e) => {
+                                          // Dejamos esto comentado, para que no ponga estilos en la row seleccionada, pero si aplique el click
+                                          // En caso que queramos que se aplique el estilo, basta con descomentar esta linea
+                                          /*
                                           document.querySelectorAll(".tabula-selected-row").forEach(
                                                  (x)=> { x.classList.remove("tabula-selected-row");}
                                           );
@@ -267,7 +270,7 @@ class Tabula {
                                           if (!mainrow.classList.contains("tabula-selected-row")) {
                                                  mainrow.classList.add("tabula-selected-row");
                                           }
-
+                                          */
                                           this.#options.mainrowClickCallback(e.currentTarget.id);
                                    });
                             }
