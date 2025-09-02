@@ -300,16 +300,18 @@ class Tabula {
                      }
 
                      // subrows
-                     if (r>0) { // no tocamos cabecera
-                            for (let sr=valuesSubrows[r].length-1;sr>=0;sr--) { 
-                                   //console.log(valuesSubrows[r][sr].subrowId+"   "+valuesSubrows[r][sr].values);
-                                   for ( let i=this.#startCol;i<=this.#options.width;i++) {
-                                                 let auxobj=document.getElementById(valuesSubrows[r][sr].subrowId+"-cell-"+i);
-                                                 this.renderCell(auxobj,valuesSubrows[r][sr].values[i],"");
-                                                 auxobj.style.textAlign=this.#options.colAligns[i];
-                                          } 
+                     if(valuesSubrows.length > 0){
+                            if (r>0) { // no tocamos cabecera
+                                   for (let sr=valuesSubrows[r].length-1;sr>=0;sr--) { 
+                                          //console.log(valuesSubrows[r][sr].subrowId+"   "+valuesSubrows[r][sr].values);
+                                          for ( let i=this.#startCol;i<=this.#options.width;i++) {
+                                                        let auxobj=document.getElementById(valuesSubrows[r][sr].subrowId+"-cell-"+i);
+                                                        this.renderCell(auxobj,valuesSubrows[r][sr].values[i],"");
+                                                        auxobj.style.textAlign=this.#options.colAligns[i];
+                                                 } 
+                                   }
                             }
-                      }
+                     }
 
               }
        }
