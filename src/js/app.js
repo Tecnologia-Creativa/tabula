@@ -26,7 +26,11 @@ function testcallback(id) {
               colWidths:["5%","5%","30%","5%","5%","5%","5%","5%","5%","5%","5%","5%","5%","5%"],
               colAligns:["right","","","right","right","right","right","right","right","right","right","right","right","right","right"],
               subrowClickCallback:testcallback,
-              mainrowClickCallback: (id) => { console.log('AQUI -> ', id); }
+              mainrowClickCallback: (id) => { 
+                                          console.log('TR MAIN ROW CLICK-> ', id);
+                                          //document.getElementById("cmd_"+id).click();
+                                          myt.toggleRow(id);
+                                    }
               };
 
 
@@ -84,5 +88,6 @@ function testcallback(id) {
        // Fila especial creada por el nombre de la partida.
        // los nombres de partidas que comienzan con $S$ son partidas especiales que se renderizan como filas vacías con la clase "tabula-specialRows-1" 
        myt.renderCell(document.getElementById("mySpecial1-2"),"TOTAL CONSUMOS","");
+
 
 })();

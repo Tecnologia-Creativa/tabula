@@ -23,7 +23,7 @@ class Tabula {
               colWidths:[], // style units
               colAligns:[],// text-align directive
               mainrowClickCallback: null,
-              subrowClickCallback: () => {} // revuelve el id del subrow pulsado
+              subrowClickCallback: () => {} // devuelve el id del subrow pulsado
        }
        #startCol = 1;
        #startRow = 1;
@@ -331,6 +331,10 @@ class Tabula {
               this.#createTableBase();
        }
 
+       toggleRow(nodo="") {
+              document.getElementById("cmd_"+nodo).click(); // busca 
+              
+       }
 
 
 }
