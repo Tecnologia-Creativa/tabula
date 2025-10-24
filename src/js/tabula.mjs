@@ -23,7 +23,8 @@ class Tabula {
               colWidths:[], // style units
               colAligns:[],// text-align directive
               mainrowClickCallback: null,
-              subrowClickCallback: () => {} // devuelve el id del subrow pulsado
+              subrowClickCallback: () => {}, // devuelve el id del subrow pulsado
+              mainrowStandardBackground: false // opción solamente para cuando existe un callback para la linea principal. esto impide que se cambie el color
        }
        #startCol = 1;
        #startRow = 1;
@@ -258,20 +259,17 @@ class Tabula {
                             }
 
                             // Función para poder colocar un evento de click en las rows principales
-                            if(this.#options.mainrowClickCallback != null){
-                                   mainrow.addEventListener("click", (e) => {
-                                          // Dejamos esto comentado, para que no ponga estilos en la row seleccionada, pero si aplique el click
-                                          // En caso que queramos que se aplique el estilo, basta con descomentar esta linea
-                                          /*
-                                          document.querySelectorAll(".tabula-selected-row").forEach(
-                                                 (x)=> { x.classList.remove("tabula-selected-row");}
-                                          );
+                            if(this.#options.mainrowClickCallback != null && r > 0){
 
-                                          if (!mainrow.classList.contains("tabula-selected-row")) {
-                                                 mainrow.classList.add("tabula-selected-row");
-                                          }
-                                          */
-                                          this.#options.mainrowClickCallback(e.currentTarget.id);
+                                   mainrow.style.cursor = 'pointer';
+
+                                   if(!this.#options.mainrowStandardBackground){
+                                          mainrow.style.background = 'white';
+                                   }
+                                   
+
+                                   mainrow.addEventListener("click", (e) => {
+                                          this.#options.mainrowClickCallback(e.currentTarget.id, e.target.id);
                                    });
                             }
                      }
